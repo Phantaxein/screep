@@ -1,0 +1,31 @@
+var creepSpawner = {
+    run: function(){
+        var creeps = [], structures = [], rooms = [], spawns = [];
+        for(var name in Game.creeps){
+            creeps.push(Game.creeps[name]);
+        }
+        for(var name in Game.structures){
+            structures.push(Game.structures[name]);
+        }
+        for(var name in Game.rooms){
+            rooms.push(Game.rooms[name]);
+        }
+        for(var name in Game.spawns){
+            spawns.push(Game.spawns[name]);
+        }
+        
+        
+        if(creeps.filter(creep => creep.memory.role == 'harvester').length < 1){
+            var energyCapSum = rooms[0].energyCapacityAvailable;
+            var energySum = rooms[0].energyAvailable;
+            if(energyCapSum >= 300 && energySum >= 300){
+                var name = 'Harvester' + Game.time;
+                console.log(spawns[0].spawnCreep( [WORK, MOVE, CARRY], name, {memory: {role: 'harvester'}}));
+            }
+        }
+    }
+    
+};
+
+
+module.exports = creepSpawner;
